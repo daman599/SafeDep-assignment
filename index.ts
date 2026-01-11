@@ -68,5 +68,6 @@ export async function fetchPackageData(ecosystem: string, name: string, version:
             version: version,
         }
     });
+    console.log(res.toJson());
     return res.toJson();
 }
