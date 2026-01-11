@@ -5,6 +5,7 @@ import { useParams } from "next/navigation";
 import React, { useState, useEffect } from "react";
 import { Loader } from "@/component/loader";
 import { Error } from "@/component/error";
+import { motion } from "motion/react";
 
 type packageDataType = {
     packageVersion: {
@@ -40,7 +41,7 @@ type packageDataType = {
     }
 }
 
-const PackageDetails = ({ title, children = "NA" }: { title: string, children: React.ReactNode }) => {
+const PackageDetails = ({ title, children }: { title: string, children: React.ReactNode }) => {
     return (
         <div className="flex items-center justify-center gap-1">
             <div className="size-2 bg-[#069c85] rounded-full animate-pulse"></div>
@@ -85,9 +86,15 @@ export default function PackageData() {
     if (loading) return <Loader />
 
     return (
-        <div className="flex items-center justify-center h-screen my-10">
-            <div className="flex flex-col items-start justify-center p-4 rounded-xl gap-2">
+        <div className="flex items-center justify-center h-screen my-18">
+            <motion.div
+                initial={{ opacity: 0, filter: "blur(4px)" }}
+                animate={{ opacity: 1, filter: "blur(0px)" }}
+                transition={{ ease: "easeOut", duration: 0.5 }}
+                className="flex flex-col items-start justify-center p-4 rounded-xl gap-2">
+
                 <h1 className="text-2xl font-semibold text-white">Package Details</h1>
+
                 <div className="flex flex-col items-start justify-center mt-4 gap-1.5">
                     <PackageDetails title={"Name"}>
                         <span className="text-base font-medium text-gray-200/50" >{packageData?.packageVersion.package.name} </span>
@@ -98,7 +105,9 @@ export default function PackageData() {
                     </PackageDetails>
 
                     <PackageDetails title={"Version"}>
-                        <span className="text-base font-medium text-gray-200/50">{packageData?.packageVersion.version} </span>
+                        <span className="text-base font-medium text-gray-200/50">
+                            {packageData?.packageVersion.version}
+                        </span>
                     </PackageDetails>
 
                     <PackageDetails title={"Published Date"}>
@@ -125,7 +134,7 @@ export default function PackageData() {
                         </span>
                     </PackageDetails>
 
-                    < div className="flex flex-col items-start justify-center gap-1">
+                    <div className="flex flex-col items-start justify-center gap-1">
                         <div className="flex items-center justify-center gap-1">
                             <div className="size-2 bg-[#069c85] rounded-full animate-pulse"></div>
                             <span className="text-gray-300 text-lg font-bold">Vulnerabilities: </span>
@@ -148,7 +157,7 @@ export default function PackageData() {
                         </div>
 
                         {packageData?.insight?.projectInsights?.length > 0 ?
-                            packageData?.insight.projectInsights.map((insight, i) =>
+                            packageData?.insight.projectInsights.map((insight, i) => (
                                 <div key={i} className="flex flex-col items-start justify-center gap-1 ml-7">
                                     <span className="text-base font-medium text-gray-200/50"> Forks: {insight?.forks ?? "Not mentioned"}</span>
                                     <span className="text-base font-medium text-gray-200/50"> Stars : {insight?.stars ?? "Not mentioned"}</span>
@@ -156,10 +165,10 @@ export default function PackageData() {
                                     <span className="text-base font-medium text-gray-200/50"> Url : <a href={insight?.project?.url ?? "Not given"}>
                                         {packageData?.insight.projectInsights[0].project.url}</a></span>
                                 </div>
-                            ) : <span className="text-base font-medium text-gray-200/50">There are no insights about project.</span>}
+                            )) : <span className="text-base font-medium text-gray-200/50">There are no insights about project.</span>}
                     </div>
                 </div>
-            </div>
+            </motion.div>
         </div >
     );
 }
