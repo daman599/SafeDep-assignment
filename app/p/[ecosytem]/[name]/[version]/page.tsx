@@ -3,6 +3,7 @@
 import { fetchPackageData } from "@/index";
 import { useParams } from "next/navigation";
 import { useState, useEffect } from "react";
+import { Loader } from "@/component/loader";
 
 export default function PageData() {
     const [loading, setLoading] = useState<boolean>(true);
@@ -19,10 +20,10 @@ export default function PageData() {
     }, [])
 
     if (loading) {
-        return <div>Loading....</div>
+        return <Loader />
     }
 
     return (
-        <div>nice</div>
+        <div>{packageData}</div>
     );
 }
