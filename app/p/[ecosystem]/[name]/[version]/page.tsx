@@ -95,7 +95,21 @@ export default function PackageData() {
                 transition={{ ease: "easeOut", duration: 0.5 }}
                 className="flex flex-col items-start justify-center p-4 rounded-xl gap-2.5">
 
-                <h1 className="text-xl md:text-2xl font-semibold text-white">Package Details</h1>
+                <div className="relative">
+                    <motion.h1 initial={{ opacity: 0, scale: 0.95, filter: "blur(3px)" }}
+                        whileInView={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+                        transition={{ duration: 1, ease: "easeOut" }}
+                        className="text-xl md:text-2xl font-semibold text-white">
+                        Package Details
+                    </motion.h1>
+
+                    <motion.div initial={{ scaleX: 0 }}
+                        animate={{ scaleX: 1 }}
+                        transition={{ duration: 1, ease: "easeOut", delay: 0.5 }}
+                        style={{ transformOrigin: "center" }}
+                        className="absolute w-full h-0.5 rounded-full bg-[#069c85]">
+                    </motion.div>
+                </div>
 
                 <div className="flex flex-col items-start justify-center mt-4 gap-1.5">
                     <PackageDetails title={"Name"}>
@@ -122,7 +136,7 @@ export default function PackageData() {
 
                     <PackageDetails title={"Registries"}>
                         {packageData?.insight?.registries?.length > 0 ? (
-                            <a href={packageData?.insight.registries[0]} className="text-base font-medium text-gray-200/50" >
+                            <a href={packageData?.insight.registries[0]} className="text-sm md:text-base font-medium text-gray-200/50" >
                                 {packageData?.insight.registries[0]}
                             </a>
                         ) : (
@@ -146,7 +160,7 @@ export default function PackageData() {
                             packageData?.insight.vulnerabilities.map((vul, i) => (
                                 <div key={i} className="flex items-center justify-center gap-1 ml-7">
                                     <div className="size-1 md:size-2 bg-orange-600/50 rounded-full"></div>
-                                    <span className="text-xs md:text-base font-medium text-gray-200/50">{vul.summary}</span>
+                                    <span className="text-sm md:text-base font-medium text-gray-200/50">{vul.summary}</span>
                                 </div>
                             ))
                             : <span className="text-sm md:text-base font-medium text-gray-200/50 ml-3">There are no vulnerabilities in this package.</span>
@@ -168,7 +182,7 @@ export default function PackageData() {
                                     <span className="text-sm md:text-base font-medium text-gray-200/50"> Url : <a href={insight?.project?.url ?? "Not given"}>
                                         {packageData?.insight.projectInsights[0].project.url}</a></span>
                                 </div>
-                            )) : <span className="text-sm md:text-base font-medium text-gray-200/50">There are no insights about project.</span>}
+                            )) : <span className="text-sm md:text-base font-medium text-gray-200/50 ml-3">There are no insights about project.</span>}
                     </div>
                 </div>
             </motion.div>
