@@ -6,40 +6,7 @@ import React, { useState, useEffect } from "react";
 import { Loader } from "@/component/loader";
 import { Error } from "@/component/error";
 import { motion } from "motion/react";
-
-type packageDataType = {
-    packageVersion: {
-        package: {
-            ecosystem: string,
-            name: string,
-        },
-        version: string,
-    },
-    insight: {
-        dependencies: {
-            package: {
-                ecosystem: string,
-                name: string,
-            },
-            version: string,
-        }[],
-        packagePublishedAt: string,
-        registries: string[],
-        vulnerabilities: {
-            summary: string,
-        }[],
-        projectInsights: {
-            forks: string,
-            stars: string,
-            issues: {
-                open: string,
-            },
-            project: {
-                url: string,
-            }
-        }[]
-    }
-}
+import { packageDataType1 } from "@/lib/packageDataType";
 
 const PackageDetails = ({ title, children }: { title: string, children: React.ReactNode }) => {
     return (
@@ -65,7 +32,7 @@ export default function PackageData() {
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<boolean>(false);
     const { ecosystem, name, version } = useParams<{ ecosystem: string, name: string, version: string }>();
-    const [packageData, setPackageData] = useState<packageDataType | null>(null);
+    const [packageData, setPackageData] = useState<packageDataType1 | null>(null);
 
     useEffect(() => {
         async function callFunc() {
