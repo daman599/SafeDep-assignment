@@ -135,7 +135,7 @@ export default function PackageData() {
                     </PackageDetails>
 
                     <PackageDetails title={"Registries"}>
-                        {packageData?.insight?.registries?.length > 0 ? (
+                        {(packageData?.insight?.registries?.length ?? 0) > 0 ? (
                             <a href={packageData?.insight.registries[0]} className="text-sm md:text-base font-medium text-gray-200/50" >
                                 {packageData?.insight.registries[0]}
                             </a>
@@ -156,7 +156,7 @@ export default function PackageData() {
                             <span className="text-gray-300 text-base md:text-lg font-bold">Vulnerabilities: </span>
                         </div>
 
-                        {packageData?.insight?.vulnerabilities?.length > 0 ?
+                        {(packageData?.insight?.vulnerabilities?.length ?? 0) > 0 ?
                             packageData?.insight.vulnerabilities.map((vul, i) => (
                                 <div key={i} className="flex items-center justify-center gap-1 ml-7">
                                     <div className="size-1 md:size-2 bg-orange-600/50 rounded-full"></div>
@@ -173,7 +173,7 @@ export default function PackageData() {
                             <span className="text-gray-300 text-base md:text-lg font-bold">Project Insights:</span>
                         </div>
 
-                        {packageData?.insight?.projectInsights?.length > 0 ?
+                        {(packageData?.insight?.projectInsights?.length ?? 0) > 0 ?
                             packageData?.insight.projectInsights.map((insight, i) => (
                                 <div key={i} className="flex flex-col items-start justify-center gap-1 ml-7">
                                     <span className="text-sm md:text-base font-medium text-gray-200/50"> Forks: {insight?.forks ?? "Not mentioned"}</span>
